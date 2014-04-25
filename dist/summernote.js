@@ -6,7 +6,7 @@
  * Copyright 2013 Alan Hong. and outher contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2014-04-12T04:54Z
+ * Date: 2014-04-25T09:12Z
  */
 (function (factory) {
   /* global define */
@@ -55,7 +55,7 @@
    */
   var agent = {
     bMac: navigator.appVersion.indexOf('Mac') > -1,
-    bMSIE: navigator.userAgent.indexOf('MSIE') > -1,
+    bMSIE: navigator.userAgent.indexOf('MSIE') > -1 || navigator.userAgent.indexOf('Trident') > -1,
     bFF: navigator.userAgent.indexOf('Firefox') > -1,
     jqueryVersion: parseFloat($.fn.jquery),
     bCodeMirror: !!CodeMirror
@@ -3102,7 +3102,10 @@
     ];
 
     // createPalette
-    var createPalette = function ($container) {
+    var createPalette = function ($container, paletteArray) {
+      if (typeof paletteArray !== 'undefined') {
+        aaColor = paletteArray;
+      }
       $container.find('.note-color-palette').each(function () {
         var $palette = $(this), sEvent = $palette.attr('data-target-event');
         var aPaletteContents = [];
@@ -3177,7 +3180,7 @@
       sToolbar = '<div class="note-toolbar btn-toolbar">' + sToolbar + '</div>';
 
       var $toolbar = $(sToolbar).prependTo($editor);
-      createPalette($toolbar);
+      createPalette($toolbar, options.paletteArray);
       createTooltip($toolbar, 'bottom');
 
       //05. create Popover

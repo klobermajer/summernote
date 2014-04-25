@@ -440,7 +440,10 @@ define([
     ];
 
     // createPalette
-    var createPalette = function ($container) {
+    var createPalette = function ($container, paletteArray) {
+      if (typeof paletteArray !== 'undefined') {
+        aaColor = paletteArray;
+      }
       $container.find('.note-color-palette').each(function () {
         var $palette = $(this), sEvent = $palette.attr('data-target-event');
         var aPaletteContents = [];
@@ -515,7 +518,7 @@ define([
       sToolbar = '<div class="note-toolbar btn-toolbar">' + sToolbar + '</div>';
 
       var $toolbar = $(sToolbar).prependTo($editor);
-      createPalette($toolbar);
+      createPalette($toolbar, options.paletteArray);
       createTooltip($toolbar, 'bottom');
 
       //05. create Popover
